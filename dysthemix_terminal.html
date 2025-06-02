@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dysthemix // Cyber Heist Interface</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #000000 0%, #0a0a0a 100%);
+      color: #39ff14;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #interface {
+      width: 90%;
+      max-width: 960px;
+      background: rgba(0, 255, 100, 0.05);
+      padding: 20px;
+      border: 1px solid #39ff14;
+      box-shadow: 0 0 20px #39ff14aa;
+      backdrop-filter: blur(5px);
+      position: relative;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      line-height: 1.5;
+      min-height: 300px;
+    }
+    .input-line {
+      display: flex;
+      align-items: center;
+    }
+    .prompt {
+      color: #39ff14;
+      margin-right: 10px;
+    }
+    input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #39ff14;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      flex-grow: 1;
+    }
+    .glitch {
+      animation: glitch 1s infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 1px 1px red; }
+      20% { text-shadow: -1px -1px blue; }
+      40% { text-shadow: 1px -1px green; }
+      60% { text-shadow: -2px 1px yellow; }
+      80% { text-shadow: 1px 2px magenta; }
+      100% { text-shadow: 0 0 cyan; }
+    }
+    #easter-egg {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(57, 255, 20, 0.1);
+      border: 1px dashed #39ff14;
+      color: #39ff14;
+    }
+  </style>
+</head>
+<body>
+  <div id="interface">
+    <div id="terminal">Initializing Dysthemix Cyber Heist Interface v1.0...
+Connecting...
+> Awaiting user command...</div>
+    <div class="input-line">
+      <span class="prompt">$</span>
+      <input type="text" id="command" autofocus autocomplete="off">
+    </div>
+    <div id="easter-egg">
+      🕳️ <strong>EASTER EGG UNLOCKED:</strong> Access Code "G0ST::SIG/7"
+      <br>Download: <a href="#" style="color:#39ff14">[root_zero_module1.pkg]</a>
+    </div>
+  </div>
+
+  <script>
+    const terminal = document.getElementById('terminal');
+    const commandInput = document.getElementById('command');
+    const easterEgg = document.getElementById('easter-egg');
+    
+    const responses = {
+      "help": "Commands: hack, probe, trace, exit",
+      "hack": "Injecting zero-day into target system... Bypassed.",
+      "probe": "Node signature: 9X4A7-ROOT. Status: Encrypted. Hidden services detected.",
+      "trace": "Triangulating... signal bouncing through 9 relay chains. Untraceable.",
+      "exit": "Connection terminated. Session scrubbed.",
+      "unlock": "<glitch>backdoor injected... unlocking hidden object...</glitch>"
+    };
+
+    const secretCode = "unlock";
+
+    commandInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        const input = commandInput.value.trim().toLowerCase();
+        terminal.innerHTML += `\n$ ${input}`;
+
+        if (responses[input]) {
+          terminal.innerHTML += `\n${responses[input]}`;
+
+          if (input === secretCode) {
+            easterEgg.style.display = 'block';
+          }
+        } else {
+          terminal.innerHTML += `\nCommand not recognized. Type 'help' for options.`;
+        }
+
+        commandInput.value = "";
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+  </script>
+</body>
+</html>
